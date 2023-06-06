@@ -5,8 +5,8 @@ import mongoose from "mongoose";
 const mongodbConnection = async () => {
     try {
         
-        const connection = "mongodb://localhost:27017/starter"
-        await mongoose.connect(connection)
+        
+        await mongoose.connect(process.env.MONGO_STRING)
         console.log(`Mongodb connected succsess fully`.bgGreen.black);
 
     } catch (error) {

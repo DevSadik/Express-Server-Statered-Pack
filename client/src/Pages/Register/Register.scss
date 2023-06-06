@@ -1,0 +1,59 @@
+
+
+
+
+.auth-container .auth-wrapper{
+    .signup-text{
+        text-align: center;
+        width: 65%;
+        color: #8E8E8E;
+        font-weight: 700;
+        font-size: 17px;
+    
+    }
+    .auth-with-facebook-button {
+        display: flex;
+        align-items: center;
+        line-height: 0px;
+        gap: 8px;
+        text-decoration: none;
+        color: #FFFFFF;
+        font-size: 14px;
+        font-weight: 600;
+        margin: 15px 0px;
+        padding: 8px 55px;
+        background: #3578E5;
+        border-radius: 5px;
+        .auth-with-facebook-icon{
+            font-size: 17px;
+            background-color: #4486ff;
+    
+        }
+    }
+
+    .signup-submit-text-wrapper{
+        width: 80%;
+        text-align: center;
+        color: #8E8E8E;
+        font-weight: 400;
+        font-size: 12px;
+
+        .signup-submit-text{
+            padding: 5px 0px;
+            a{
+                text-decoration: none;
+                color: #00376B;
+                font-weight: 400;
+            }
+        }
+        .signup-submit-cookie{
+            padding: 5px 0px;
+
+            a{
+                text-decoration: none;
+                color:#00376B;
+                font-weight: 400;
+            }
+        }
+    }
+} 

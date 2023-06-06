@@ -1,19 +1,18 @@
 import express from "express";
 import colors from "colors";
-import dotenv from "dotenv";
+
 import path from "path";
-import mongodbConnection from "./config/db.js";
 import cookieParser from "cookie-parser";
 import userRoute from './routes/UserRoute.js';
 import errorHandeler from "./middlewares/errorHandeler.js";
-
+import mongodbConnection from "./config/db.js";
+import cors from 'cors'
+import env from "dotenv/config";
 
 
 
 // enviroment variables
-dotenv.config();
-const PORT = process.env.PORT || 8080;
-
+const port = process.env.PORT ||8000;
 
 
 // init express
@@ -23,9 +22,10 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded( {extended : false} ));
 app.use(cookieParser())
+app.use(cors())
 
-// static folder
-app.use(express.static("public"));
+// // static folder
+// app.use(express.static("public"));
 
 
 // Route
@@ -36,8 +36,8 @@ app.use(errorHandeler)
 
 
 // server listen
-app.listen( PORT , () => {
+app.listen( port , () => {
     // MongoDB Connection
     mongodbConnection()
-    console.log(`Server Runing in your port ${PORT}`.bgBlue.black);
+    console.log(`Server Runing in your port ${port}`.bgBlue.black);
 })

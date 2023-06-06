@@ -7,23 +7,28 @@ const UserModel = mongoose.Schema({
         trim : true, 
         required : true
     },
-    user_name : {
+    username : {
         type : String,
-        trim : true, 
-        required : true,
-        unique : true
+        trim : true,   
     },
     phone : {
         type : String,
         trim : true, 
-        required : true,
-        unique : true
+        
     },
     email : {
         type : String,
         trim : true, 
         required : true,
         unique : true
+    },
+    gender : {
+        type : String,
+        trim : true, 
+    },
+    bio : {
+        type : String,
+        trim : true, 
     },
     password : {
         type : String,
@@ -32,6 +37,10 @@ const UserModel = mongoose.Schema({
     },
     photo : {
         type : String,
+    },
+    isVerifed : {
+        type : Boolean,
+        default : false
     },
     isAdmin : {
         type : Boolean,
