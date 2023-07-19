@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Footer from '../../components/Fotter/Footer';
 import forgotLogo from './Screenshot.png'
 import './Forgotpassword.scss'
@@ -16,22 +16,23 @@ const ForgotPassword = () => {
       msg : '',
       status : false
     });
-    const navigate = useNavigate()
+  
     
 
     const handelForgotPassword = async(e) => {
      
       e.preventDefault()
-      
-      
 
       try {
+
         if( !email ){
           createToast('Enter your email')
+
         }else{
+
           axios.post(`http://localhost:5050/api/user/forgot-password`, {email} ).then( res => {
             swal.fire("Success!", "Your verification link send successfully !", "success");
-            navigate(`/user/password-recover/${res.data}`)
+            
           }).catch(error => {
             setMsg({
               type : 'danger',
@@ -39,6 +40,7 @@ const ForgotPassword = () => {
               status : true
             })
           })
+          
         }
       } catch (error) {
         console.log(error);

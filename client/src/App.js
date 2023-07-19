@@ -15,7 +15,8 @@ import { ToastContainer } from 'react-toastify';
 import { createToast } from './components/Utility/Toast';
 import Verify from './Pages/Verify/Verify';
 import ForgotPassword from './Pages/ForgotPass/ForgotPassword';
-import ConfirmChangeEmail from './Pages/ConfirmChangeEmail/ConfirmChangeEmail';
+
+import ConfirmResetPassword from './Pages/ConfirmResetPassword/ConfirmResetPassword';
 
 
 function App() {
@@ -79,7 +80,7 @@ function App() {
         <Route path='/login' element= { <AuthRedirectUser> <Login/> </AuthRedirectUser>} />
         <Route path='/user/:id/verify/:token' element= { <Verify />} />
         <Route path='/user/password-recover' element= { <ForgotPassword />} />
-        <Route path='/user/password-recover/:token' element= { <ConfirmChangeEmail />} />
+        <Route path='/user/:token' element= { <ConfirmResetPassword />} />
         <Route path='/register' element= { <AuthRedirectUser> <Register/> </AuthRedirectUser> } />
       </Routes>
     </>

@@ -9,7 +9,7 @@ export const SendEmail = async( to, sub, text) => {
       port: 587,
       auth: {
         user: "developerwahidsadik@gmail.com",
-        pass: "cgntvmmvgegwqdeq"
+        pass: "ezjfaoqbszrgihtw"
       }
     });
 

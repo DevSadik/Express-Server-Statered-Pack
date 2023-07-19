@@ -147,8 +147,10 @@ export const userLogin = async (req, res, next) => {
  * @route /api/user/register
  */
 export const userRegister = async ( req, res, next ) => {
+    // Password hash
     const salt = await bcrypt.genSalt(10);
-    const hash_pass = await bcrypt.hash(req.body.password, salt)
+    const hash_pass = await bcrypt.hash(req.body.password, salt);
+
     try {
         const user = await User.create({...req.body, password : hash_pass});
 
@@ -230,17 +232,18 @@ export const forgotPassword = async( req, res, next ) => {
         const {email} = req.body;
         
        const recover_user = await User.findOne({ email });
-       console.log(recover_user);
+       
        if( !recover_user ){
         res.status(404).json({ message : 'User do not match'})
        }
+       
        if( recover_user ){
-        const token = CreateToken({ id : recover_user._id})
+        const token = CreateToken({ id : recover_user._id}, '5m')
 
         await Token.create({ userId : recover_user.id , token : token})
-        const verify_url = `http://localhost:3000/user/${recover_user._id}/${token}`
+        const verify_url = `http://localhost:3000/user/${token}`
         SendEmail(recover_user.email, 'Password Reset', verify_url)
-        res.status(200).json(token)
+        res.status(200).json({ message : 'Please check your email'})
        }
 
         
@@ -250,24 +253,38 @@ export const forgotPassword = async( req, res, next ) => {
 }
 
 
-export const resetUserInfo = async (req, res, next) => {
+
+
+export const resetPassword = async (req, res, next) => {
     try {
-        const {token} = req.params
-
-        if(token === '' ){
-            return res.send({ message : 'Invalid Token'})
-        }else{
-            const {userId} = await Token.findOne({token})
-            const {name} = await User.findById(userId)
-    
-            res.send(name)
-        }
-       
-    } catch (error) {
+        // Get form data for token & password
+        const {token, password } = req.body;
         
-    }
-}
+        // Token to filter user id or user info
+        // const [header, payload, signature] = token.split('.');
+        // const decodedPayload = atob(payload);
+        // const jsonPayload = JSON.parse(decodedPayload);
+        // const user_id = jsonPayload.id;
 
-export const resetPassword = (req, res, next) => {
-    res.send('done')
+        const {id} = jwt.verify( token , process.env.JWT_SECRET)
+    
+
+        // Password hash
+        const salt = await bcrypt.genSalt(10);
+        const hash_pass = await bcrypt.hash(password, salt);
+
+        // Get user & update password
+        const user_info = await User.findByIdAndUpdate(id, {
+            password : hash_pass
+        })
+        
+        res.status(200).json({
+            message : " User password changed successfull "
+        })
+       
+
+
+    } catch (error) {
+        next(error)
+    }
 }
